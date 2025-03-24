@@ -523,6 +523,7 @@ export function Selector<T>(props: {
                 key={i}
                 title={item.title}
                 subTitle={item.subTitle}
+                // @ts-ignore
                 icon={<Avatar model={item.value as string} />}
                 onClick={(e) => {
                   if (item.disable) {

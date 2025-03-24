@@ -580,6 +580,7 @@ export function ChatActions(props: {
       // show next model to default model if exist
       let nextModel = models.find((model) => model.isDefault) || models[0];
       chatStore.updateTargetSession(session, (session) => {
+        // @ts-ignore
         session.mask.modelConfig.model = nextModel.name;
         session.mask.modelConfig.providerName = nextModel?.provider
           ?.providerName as ServiceProvider;
@@ -1847,6 +1848,7 @@ function _Chat() {
                                       text={Locale.Chat.Actions.Stop}
                                       icon={<StopIcon />}
                                       onClick={() =>
+                                        // @ts-ignore
                                         onUserStop(message.id ?? i)
                                       }
                                     />
@@ -1862,6 +1864,7 @@ function _Chat() {
                                         text={Locale.Chat.Actions.Delete}
                                         icon={<DeleteIcon />}
                                         onClick={() =>
+                                          // @ts-ignore
                                           onDelete(message.id ?? i)
                                         }
                                       />

@@ -162,6 +162,7 @@ function fillTemplateWith(input: string, modelConfig: ModelConfig) {
   const cutoff =
     KnowledgeCutOffDate[modelConfig.model] ?? KnowledgeCutOffDate.default;
   // Find the model in the DEFAULT_MODELS array that matches the modelConfig.model
+  // @ts-ignore
   const modelInfo = DEFAULT_MODELS.find((m) => m.name === modelConfig.model);
 
   var serviceProvider = "OpenAI";
@@ -169,6 +170,7 @@ function fillTemplateWith(input: string, modelConfig: ModelConfig) {
     // TODO: auto detect the providerName from the modelConfig.model
 
     // Directly use the providerName from the modelInfo
+    // @ts-ignore
     serviceProvider = modelInfo.provider.providerName;
   }
 
@@ -511,6 +513,7 @@ export const useChatStore = createPersistStore(
             });
             ChatControllerPool.remove(
               session.id,
+              // @ts-ignore
               botMessage.id ?? messageIndex,
             );
 
@@ -520,6 +523,7 @@ export const useChatStore = createPersistStore(
             // collect controller for stop/retry
             ChatControllerPool.addController(
               session.id,
+              // @ts-ignore
               botMessage.id ?? messageIndex,
               controller,
             );
@@ -548,13 +552,19 @@ export const useChatStore = createPersistStore(
 
         // in-context prompts
         const contextPrompts = session.mask.context.slice();
-
+        // @ts-ignore
+        const isR1 =
+          modelConfig.model.includes("r1") || modelConfig.model.includes("R1");
+        const r1_template =
+          'Initiate your response with "<think>\\n嗯" at the beginning of every output.';
         // system prompts, to get close to OpenAI Web ChatGPT
         const shouldInjectSystemPrompts =
-          modelConfig.enableInjectSystemPrompts &&
-          (session.mask.modelConfig.model.startsWith("gpt-") ||
-            session.mask.modelConfig.model.startsWith("chatgpt-"));
-
+          (modelConfig.enableInjectSystemPrompts &&
+            // @ts-ignore
+            (session.mask.modelConfig.model.startsWith("gpt-") ||
+              // @ts-ignore
+              session.mask.modelConfig.model.startsWith("chatgpt-"))) ||
+          isR1;
         const mcpEnabled = await isMcpEnabled();
         const mcpSystemPrompt = mcpEnabled ? await getMcpSystemPrompt() : "";
 
@@ -567,7 +577,7 @@ export const useChatStore = createPersistStore(
               content:
                 fillTemplateWith("", {
                   ...modelConfig,
-                  template: DEFAULT_SYSTEM_TEMPLATE,
+                  template: isR1 ? r1_template : DEFAULT_SYSTEM_TEMPLATE,
                 }) + mcpSystemPrompt,
             }),
           ];

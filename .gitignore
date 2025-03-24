@@ -49,3 +49,5 @@ masks.json
 
 # mcp config
 app/mcp/mcp_config.json
+nextchat-lite-amd64.tar
+nextchat-lite-arm64.tar

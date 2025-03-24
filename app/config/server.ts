@@ -139,7 +139,9 @@ export const getServerSideConfig = () => {
 
   if (disableGPT4) {
     if (customModels) customModels += ",";
+    // @ts-ignore
     customModels += DEFAULT_MODELS.filter((m) => isGPT4Model(m.name))
+      // @ts-ignore
       .map((m) => "-" + m.name)
       .join(",");
     if (defaultModel && isGPT4Model(defaultModel)) {

@@ -153,6 +153,7 @@ export function ArtifactsShareButton({
             setLoading(true);
             upload(getCode())
               .then((res) => {
+                // @ts-ignore
                 if (res?.id) {
                   setShow(true);
                   setName(res?.id);

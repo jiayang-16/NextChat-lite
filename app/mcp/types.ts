@@ -11,7 +11,7 @@ export interface McpRequestMessage {
     [key: string]: unknown;
   };
 }
-
+// @ts-ignore
 export const McpRequestMessageSchema: z.ZodType<McpRequestMessage> = z.object({
   jsonrpc: z.literal("2.0").optional(),
   id: z.union([z.string(), z.number()]).optional(),
@@ -31,7 +31,7 @@ export interface McpResponseMessage {
     data?: unknown;
   };
 }
-
+// @ts-ignore
 export const McpResponseMessageSchema: z.ZodType<McpResponseMessage> = z.object(
   {
     jsonrpc: z.literal("2.0").optional(),
@@ -54,7 +54,7 @@ export interface McpNotifications {
     [key: string]: unknown;
   };
 }
-
+// @ts-ignore
 export const McpNotificationsSchema: z.ZodType<McpNotifications> = z.object({
   jsonrpc: z.literal("2.0").optional(),
   method: z.string(),

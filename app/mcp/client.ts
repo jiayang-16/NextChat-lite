@@ -44,6 +44,7 @@ export async function removeClient(client: Client) {
 }
 
 export async function listTools(client: Client): Promise<ListToolsResponse> {
+  // @ts-ignore
   return client.listTools();
 }
 

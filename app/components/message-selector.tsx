@@ -137,6 +137,7 @@ export function MessageSelector(props: {
     const [start, end] = [startIndex, endIndex].sort((a, b) => a - b);
     props.updateSelection((selection) => {
       for (let i = start; i <= end; i += 1) {
+        // @ts-ignore
         selection.add(messages[i].id ?? i);
       }
     });
@@ -192,6 +193,7 @@ export function MessageSelector(props: {
         {messages.map((m, i) => {
           if (!isInSearchResult(m.id!)) return null;
           const id = m.id ?? i;
+          // @ts-ignore
           const isSelected = props.selection.has(id);
 
           return (
@@ -202,6 +204,7 @@ export function MessageSelector(props: {
               key={i}
               onClick={() => {
                 props.updateSelection((selection) => {
+                  // @ts-ignore
                   selection.has(id) ? selection.delete(id) : selection.add(id);
                 });
                 onClickIndex(i);

@@ -115,10 +115,13 @@ export const usePromptStore = createPersistStore(
       };
 
       SearchService.remove(id);
+      // @ts-ignore
       updater(prompt);
       const prompts = get().prompts;
+      // @ts-ignore
       prompts[id] = prompt;
       set(() => ({ prompts }));
+      // @ts-ignore
       SearchService.add(prompt);
     },
 

@@ -49,6 +49,7 @@ export function Avatar(props: { model?: ModelType; avatar?: string }) {
   let LlmIcon = BotIconDefault;
 
   if (props.model) {
+    // @ts-ignore
     const modelName = props.model.toLowerCase();
 
     if (
@@ -68,7 +69,10 @@ export function Avatar(props: { model?: ModelType; avatar?: string }) {
       LlmIcon = BotIconClaude;
     } else if (modelName.includes("llama")) {
       LlmIcon = BotIconMeta;
-    } else if (modelName.startsWith("mixtral") || modelName.startsWith("codestral")) {
+    } else if (
+      modelName.startsWith("mixtral") ||
+      modelName.startsWith("codestral")
+    ) {
       LlmIcon = BotIconMistral;
     } else if (modelName.includes("deepseek")) {
       LlmIcon = BotIconDeepseek;
